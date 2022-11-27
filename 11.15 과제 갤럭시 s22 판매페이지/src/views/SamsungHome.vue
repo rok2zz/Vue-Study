@@ -369,6 +369,7 @@
   }
 
   > .footer{
+    position: fixed;
     width: 100vw;
     height: 120px;
     left: 0px;
