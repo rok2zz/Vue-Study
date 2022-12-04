@@ -1,0 +1,22 @@
+@mixin mobile {
+    @media (max-width: 900px) {
+        @content;
+    }
+}
+
+.icon {
+    width: 21px;
+    height: 21px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon.haburger {
+    
+}

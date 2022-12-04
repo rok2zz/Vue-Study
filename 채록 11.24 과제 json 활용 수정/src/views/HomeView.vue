@@ -3,8 +3,8 @@
     <div :class="$style.container" v-if="!loginCheck">
       <span :class="$style.admin">Admin</span>
       <span :class="$style.login">로그인</span>
-      <input :class="$style.loginID" type="text" placeholder="아이디 입력" v-model="userID">
-      <input :class="$style.loginPassword" type="password" placeholder="비밀번호 입력" v-model="userPassword">
+      <input v-on:keydown="keydownHandler" :class="$style.loginID" type="text" placeholder="아이디 입력" v-model="userID">
+      <input v-on:keydown="keydownHandler" :class="$style.loginPassword" type="password" placeholder="비밀번호 입력" v-model="userPassword">
       <button type="button" :class="$style.loginBtn" v-on:click="loginMode()">로그인</button>
     </div>
     <div v-else>
@@ -41,8 +41,7 @@
       font-weight: bold;
     }
 
-    input {
-      display: block;
+    > input {
       color: #333333;
       font-size: 13px;
       width: 310px;
@@ -58,6 +57,7 @@
 
     > .loginPassword {
       margin-top: 7px;
+      margin-right: 100%;
     }
 
     > .loginBtn {
@@ -98,14 +98,16 @@ export default class HomeView extends Vue {
   }
 
   loginMode() {
-    if (!(this.userID == null) && !(this.userPassword == null)) {
-      if (this.userID == this.saveID && this.userPassword == this.savePassword) {
-        this.loginCheck = true
-        this.userID = ""
-        this.userPassword = ""
-      }
+    // if (!(this.userID == this.saveID && this.userPassword == this.savePassword)) {
+    if (this.userID != this.saveID || this.userPassword != this.savePassword) {
+      alert("아이디 비번 틀림")
+      return
     }
 
+    this.loginCheck = true
+    this.userID = ""
+    this.userPassword = ""
+  
     this.$store.commit("setLoginCheck", this.loginCheck)
 
     switch (this.checkHistory) {
@@ -131,6 +133,13 @@ export default class HomeView extends Vue {
   @Watch('$store.state.loginCheck')
   updateLoginCheck() {
     this.loginCheck = this.$store.getters.getLoginCheck
+  }
+
+  keydownHandler(e: KeyboardEvent) {
+    // console.log(e)
+    if (e.key == "Enter") {
+      this.loginMode()
+    }
   }
 }
 </script>

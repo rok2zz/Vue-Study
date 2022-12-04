@@ -100,6 +100,7 @@
       width: 300px;
       background-color: #eeeeee;
       text-align: right;
+      position: relative;
 
       > .menuHeader {
         width: 300px;

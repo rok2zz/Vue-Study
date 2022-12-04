@@ -1,12 +1,10 @@
 <template>
   <div :class="$style.index">
     <div :class="$style.nonLogin" v-if="!loginCheck" v-bind="$router.push('/')"></div>
-
+    
     <div :class="$style.container" v-else>
-      <span :class="$style.spanDate">2022.11.16</span>
-      <span :class="$style.spanDashboard">Analysis Data</span>
-      <img :src="require('@/assets/graph_1.png')">
-      <img :src="require('@/assets/graph_2.png')">
+      <span :class="$style.spanAdmin">Admin</span>
+      <span :class="$style.spanSettings">운영 설정</span>
     </div>
   </div>
 </template>
@@ -19,34 +17,30 @@
 </style>
 <style lang="scss" module>
 .index {
-
+  
   > .container {
     width: 100%;
-    margin-left: 37px;
 
     span {
       width: 100%;
       display: inline-block;
       font-family: sans-serif;
+      margin-left: 37px;
     }
 
-    img {
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 60px;
-    }
-    > .spanDate {
+    > .spanAdmin {
       color: #333333;
       font-size: 15px;
       margin-top: 35px;
     }
 
-    > .spanDashboard {
+    > .spanSettings {
       color: #111111;
       font-size: 24px;
       font-weight: bold;
-    } 
+    }
   }
+  
 }
 
 </style>
@@ -67,9 +61,9 @@ export default class HomeView extends Vue {
   mounted() {
     this.checkHistory = this.$store.getters.getCheckHistory
   }
-
+  
   beforeDestroy() {
-    this.checkHistory = "dashboard"
+    this.checkHistory = "settings"
     this.$store.commit('setCheckHistory', this.checkHistory)
   }
 }
